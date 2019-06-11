@@ -27,6 +27,8 @@ class FCDataGrid extends Component {
     // show context menu on moreFunctions clicked
   };
   onToolbarPreparing = e => {
+    if (this.props.hideFilterRow) return;
+
     e.toolbarOptions.items.unshift({
       location: "after",
       widget: "dxButton",
@@ -80,7 +82,12 @@ class FCDataGrid extends Component {
       columnConfigs,
       showMoreFunctionsColumn,
       contextMenuItemClick,
-      showScrollbarMode
+      showScrollbarMode,
+      hideSearchPanel = false,
+      hideFilterRow = false,
+      hideExportExcel = false,
+      hideColumnChooser = false,
+      hideGroupPanel = false
     } = this.props;
 
     return (
@@ -98,17 +105,22 @@ class FCDataGrid extends Component {
           onToolbarPreparing={this.onToolbarPreparing}
         >
           <ColumnFixing enabled={true} />
-          <GroupPanel visible={true} />
+          {hideGroupPanel === false && <GroupPanel visible={true} />}
           <Grouping autoExpandAll={false} />
-          <SearchPanel visible={true} width={250} />
+          {hideSearchPanel === false && (
+            <SearchPanel visible={true} width={250} />
+          )}
           <HeaderFilter visible={true} />
           <FilterRow visible={this.state.showFilterRow} />
-          <Export
-            enabled={true}
-            fileName={exportFileName ? exportFileName : "Data"}
-            allowExportSelectedData={true}
-          />
-          <ColumnChooser enabled={true} />
+          {hideExportExcel === false && (
+            <Export
+              enabled={true}
+              fileName={exportFileName ? exportFileName : "Data"}
+              allowExportSelectedData={true}
+            />
+          )}
+          {hideColumnChooser === false && <ColumnChooser enabled={true} />}
+
           <Selection mode={selectionMode} showCheckBoxesMode={"onClick"} />
           <Paging enabled={false} />
           <Scrolling

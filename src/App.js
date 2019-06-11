@@ -57,10 +57,15 @@ class App extends Component {
           exportFileName={"grid1"}
           columnConfigs={this.getColumnsConfig()}
           selectionMode={"multiple"}
-          showMoreFunctionsColumn={true}
+          showMoreFunctionsColumn={false}
           showScrollbarMode={"always"}
           contextMenuItems={contextMenuItems}
           contextMenuItemClick={this.contextMenuItemClick}
+          hideFilterRow={true}
+          hideSearchPanel={true}
+          hideExportExcel={true}
+          hideColumnChooser={true}
+          hideGroupPanel={true}
         />
 
         <br />
